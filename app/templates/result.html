@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Resultado - Moto Server{% endblock %}
+
+{% block scripts %}
+    {# Solo activamos la auto-descarga si NO hubo error #}
+    {% if link_descarga_directa %}
+    <script>
+        // Esperar 1 segundos y lanzar la descarga al celular automáticamente
+        window.onload = function() {
+            setTimeout(function() {
+                window.location.href = "{{ link_descarga_directa }}";
+            }, 1000);
+        };
+    </script>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    {% if error %}
+        <div style="margin-top: 20px;">
+            <h2 style='color:#ff5e62'>Ocurrió un error</h2>
+            
+            <div style="background: #2c2c2c; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: left; font-family: monospace; font-size: 0.9em; color: #ffb3b3; overflow-x: auto;">
+                {{ error }}
+            </div>
+            
+            <p style="color: #888;">Intenta de nuevo o prueba con otro video.</p>
+            
+            <a href="{{ url_for('main.home') }}" class="btn btn-back">Volver a intentar</a>
+        </div>
+
+    {% else %}
+        <div style="margin-top: 20px;">
+            <h2 style="color:#4cd964;">¡Completado!</h2>
+            
+            <p style="color:#aaa; font-size: 0.9em; margin: 15px 0; word-break: break-all; font-weight: bold;">
+                {{ nombre_archivo }}
+            </p>
+            
+            <div style="background: #252525; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                <p style="color:#00d2ff; font-weight:bold; margin-bottom:5px;">⬇ Iniciando descarga...</p>
+                <p style="font-size: 0.8em; color: #666;">Si no empieza sola, toca el botón verde.</p>
+            </div>
+            
+            <a href="{{ link_descarga_directa }}" class="btn btn-download">
+                Guardar en Celular
+            </a>
+
+            <a href="{{ url_for('main.home') }}" class="btn btn-back">
+                Volver al inicio
+            </a>
+        </div>
+
+    {% endif %}
+
+{% endblock %}

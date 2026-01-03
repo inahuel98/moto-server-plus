@@ -1,0 +1,20 @@
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+
+# --- Archivos de Sistema ---
+.DS_Store
+Thumbs.db
+
+# --- MotoServer Específico ---
+# Ignorar el contenido de descargas, pero mantener la carpeta
+Nube_Web/*
+!Nube_Web/.gitkeep
+# No subir logs de errores si los tuvieras
+*.log
